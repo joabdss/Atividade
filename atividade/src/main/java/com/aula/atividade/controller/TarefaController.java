@@ -27,9 +27,15 @@ public class TarefaController {
         return ResponseEntity.ok(tarefaService.listar(pageable));
     }
 
-    @Operation(description = "Cadastra uma nova tarefa", summary= "Cadastra tarefa")
+    @Operation(description = "Cadastra uma nova tarefa se o usuario já existir no banco", summary= "Cadastra tarefa")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TarefaDto> save(@Valid @RequestBody TarefaDto tarefaDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.cadastrar(tarefaDto));
+    }
+
+    @Operation(description = "Atualiza os dados da tarefa", summary= "Atualiza tarefa")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TarefaDto> update(@PathVariable String id, @Valid @RequestBody TarefaDto tarefaDto){
+        return ResponseEntity.ok(tarefaService.update(id, tarefaDto));
     }
 }
