@@ -1,5 +1,6 @@
 package com.aula.atividade.dto;
 
+import com.aula.atividade.model.Tarefa;
 import com.aula.atividade.model.Usuario;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ public record UsuarioDto(
         @Email String email,
         @Size(max=11) String telefone,
         Boolean excluido,
-        List<String> tarefas
+        List<Tarefa> tarefas
 
 ) {
     public UsuarioDto(Usuario usuario){

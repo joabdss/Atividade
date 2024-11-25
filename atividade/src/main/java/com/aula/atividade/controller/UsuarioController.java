@@ -1,5 +1,6 @@
 package com.aula.atividade.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,17 +21,17 @@ import io.swagger.v3.oas.annotations.Parameter;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
-
+    @Operation(description = "Lista todos os usuários", summary= "Listar usuarios")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<UsuarioDto>> findAll(@Parameter(required = true) @PageableDefault(size = 5)Pageable pageable){
         return ResponseEntity.ok(usuarioService.findALL(pageable));
     }
-
+    @Operation(description = "Cadastra um novo usuário", summary= "Cadastra usuario")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioDto> save(@Valid @RequestBody UsuarioDto usuarioDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuarioDto));
     }
-
+    @Operation(description = "Atualiza os dados do usuário", summary= "Atualiza usuario")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioDto> update(@PathVariable String id, @Valid @RequestBody UsuarioDto usuarioDto){
         return ResponseEntity.ok(usuarioService.update(id, usuarioDto));

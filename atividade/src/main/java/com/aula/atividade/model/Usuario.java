@@ -21,10 +21,10 @@ public class Usuario {
     private String nome;
     private String email;
     private String telefone;
-    private Boolean excluido;
-    @JsonIgnore
-    @DBRef
-    private List<String> tarefas;
+    private Boolean excluido = false;
+
+    @DBRef(lazy = true) // Referências para as tarefas (relacionamento 1:N)
+    private List<Tarefa> tarefas;
 
 
     public static Usuario fromDto(UsuarioDto usuarioDto){
