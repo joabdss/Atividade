@@ -1,11 +1,15 @@
 package com.aula.atividade.model;
 
 import com.aula.atividade.dto.UsuarioDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,9 +21,13 @@ public class Usuario {
     private String nome;
     private String email;
     private String telefone;
+    private Boolean excluido;
+    @JsonIgnore
+    @DBRef
+    private List<String> tarefas;
 
 
     public static Usuario fromDto(UsuarioDto usuarioDto){
-        return new Usuario(null, usuarioDto.nome(), usuarioDto.email(), usuarioDto.telefone());
+        return new Usuario(null, usuarioDto.nome(), usuarioDto.email(), usuarioDto.telefone(), usuarioDto.excluido(), usuarioDto.tarefas());
     }
 }
