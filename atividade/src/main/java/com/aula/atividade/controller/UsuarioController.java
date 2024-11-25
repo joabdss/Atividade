@@ -1,5 +1,6 @@
 package com.aula.atividade.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,12 +27,12 @@ public class UsuarioController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioDto> save(@RequestBody UsuarioDto usuarioDto){
+    public ResponseEntity<UsuarioDto> save(@Valid @RequestBody UsuarioDto usuarioDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuarioDto));
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioDto> update(@PathVariable String id, @RequestBody UsuarioDto usuarioDto){
+    public ResponseEntity<UsuarioDto> update(@PathVariable String id, @Valid @RequestBody UsuarioDto usuarioDto){
         return ResponseEntity.ok(usuarioService.update(id, usuarioDto));
     }
 }
