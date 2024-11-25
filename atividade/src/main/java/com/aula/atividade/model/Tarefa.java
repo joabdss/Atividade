@@ -35,6 +35,7 @@ public class Tarefa {
     private Boolean excluida;
 
     @DBRef // Relacionamento com o usuário
+    @JsonIgnore
     private Usuario usuario;
 
 

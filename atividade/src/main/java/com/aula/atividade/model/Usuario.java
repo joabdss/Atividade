@@ -23,7 +23,8 @@ public class Usuario {
     private String telefone;
     private Boolean excluido = false;
 
-    @DBRef(lazy = true) // Referências para as tarefas (relacionamento 1:N)
+    @DBRef // Referências para as tarefas (relacionamento 1:N)
+    @JsonIgnore
     private List<Tarefa> tarefas;
 
 

@@ -26,11 +26,13 @@ public class UsuarioController {
     public ResponseEntity<Page<UsuarioDto>> findAll(@Parameter(required = true) @PageableDefault(size = 5)Pageable pageable){
         return ResponseEntity.ok(usuarioService.findALL(pageable));
     }
-    @Operation(description = "Cadastra um novo usuário", summary= "Cadastra usuario")
+
+    @Operation(description = "Cadastra um novo usuário com ou sem tarefas. As tarefas são cadastradas automanticamente.", summary= "Cadastra usuario")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioDto> save(@Valid @RequestBody UsuarioDto usuarioDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuarioDto));
     }
+
     @Operation(description = "Atualiza os dados do usuário", summary= "Atualiza usuario")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioDto> update(@PathVariable String id, @Valid @RequestBody UsuarioDto usuarioDto){
