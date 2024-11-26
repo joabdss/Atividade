@@ -1,5 +1,6 @@
 package com.aula.atividade.service;
 
+import com.aula.atividade.dto.TarefaDto;
 import com.aula.atividade.dto.UsuarioDto;
 import com.aula.atividade.model.Tarefa;
 import com.aula.atividade.model.Usuario;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service

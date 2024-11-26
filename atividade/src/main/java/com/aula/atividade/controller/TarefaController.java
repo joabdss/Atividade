@@ -2,6 +2,7 @@ package com.aula.atividade.controller;
 
 import com.aula.atividade.dto.TarefaDto;
 import com.aula.atividade.dto.UsuarioDto;
+import com.aula.atividade.model.Tarefa;
 import com.aula.atividade.service.TarefaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -39,6 +40,18 @@ public class TarefaController {
     public ResponseEntity<List<TarefaDto>> listarTarefasExcluidas() {
         List<TarefaDto> tarefasExcluidas = tarefaService.listarTarefasExcluidas();
         return ResponseEntity.ok(tarefasExcluidas);
+    }
+
+    /**
+     * Endpoint para listar as tarefas excluídas de um usuário específico.
+     *
+     * @param usuarioId ID do usuário.
+     * @return Lista de TarefaDto representando as tarefas excluídas do usuário.
+     */
+    @Operation(summary = "Listar Tarefas Excluídas por Usuário", description = "Retorna todas as tarefas excluídas de um usuário específico.")
+    @GetMapping("/excluidas/{usuarioId}")
+    public ResponseEntity<UsuarioDto> listarTarefasExcluidasPorUsuario(@PathVariable String usuarioId) {
+        return ResponseEntity.ok(tarefaService.listarTarefasExcluidasDoUsuario(usuarioId));
     }
 
     /**

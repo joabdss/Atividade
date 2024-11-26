@@ -46,6 +46,31 @@ public class TarefaService {
                 .collect(Collectors.toList());
     }
 
+    public UsuarioDto listarTarefasExcluidasDoUsuario(String usuarioId) {
+        // Verificar se o usuário existe no banco de dados
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new IllegalArgumentException("Usuário informado não foi encontrado."));
+
+        // Buscar todas as tarefas excluídas do usuário
+        List<Tarefa> tarefasExcluidas = tarefaRepository.findByUsuarioIdAndExcluida(usuarioId, true);
+
+        // Se não houver tarefas excluídas, retornar null
+        if (tarefasExcluidas.isEmpty()) {
+            return null;
+        }
+
+
+        // Retornar o usuário com as tarefas excluídas
+        return new UsuarioDto(
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getTelefone(),
+                usuario.getExcluido(),
+                tarefasExcluidas // Associar as tarefas excluídas ao DTO do usuário
+        );
+    }
+
 
     /**
      * Cadastra uma nova tarefa, se o usaurio associado existir no banco.
