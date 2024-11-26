@@ -11,7 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +25,28 @@ public class TarefaService {
     public Page<TarefaDto> listar(Pageable pageable) {
         return tarefaRepository.findAll(pageable).map(TarefaDto::new);
     }
+
+    public List<TarefaDto> listarTarefasExcluidas() {
+        // Busca todas as tarefas excluídas
+        List<Tarefa> tarefasExcluidas = tarefaRepository.findByExcluida(true);
+
+        // Converte as tarefas para DTO antes de retornar
+        return tarefasExcluidas.stream()
+                .map(TarefaDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<TarefaDto> listarTarefasPorTitulo(String titulo) {
+        // Busca todas as tarefas excluídas
+        List<Tarefa> tarefas = tarefaRepository.findByTituloContainingIgnoreCase(titulo);
+
+        // Converte as tarefas para DTO antes de retornar
+        return tarefas.stream()
+                .map(TarefaDto::new)
+                .collect(Collectors.toList());
+    }
+
+
     /**
      * Cadastra uma nova tarefa, se o usaurio associado existir no banco.
      *
